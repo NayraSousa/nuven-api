@@ -3,6 +3,7 @@ package com.example.nuvenapi.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -21,4 +22,20 @@ public class Place {
 
     @Column(nullable = false, length = 200)
     private String description;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
+    @PostPersist
+    public void onCreate(){
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PostUpdate
+    public void onUpdate(){
+        this.updatedAt = LocalDateTime.now();
+    }
+
 }
