@@ -17,8 +17,9 @@ public class Place {
     @Column(nullable = false, length = 50)
     private String name;
 
-    @Column(nullable = false, length = 100)
-    private String address;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "adress_id")
+    private Address address;
 
     @Column(nullable = false, length = 200)
     private String description;
