@@ -16,7 +16,7 @@ services:
     container_name: nuven-db
     image: postgres
     environment:
-      POSTGRES_DB: nuven-todo
+      POSTGRES_DB: nuven-db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
