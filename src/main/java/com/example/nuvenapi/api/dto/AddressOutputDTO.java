@@ -1,5 +1,8 @@
-package com.example.nuvenapi.DTO;
+package com.example.nuvenapi.api.dto;
 
+import lombok.Data;
+
+@Data
 public class AddressOutputDTO {
 
     private String street;

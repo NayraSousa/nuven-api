@@ -1,9 +1,10 @@
-package com.example.nuvenapi.DTO;
+package com.example.nuvenapi.api.dto;
 
-import jakarta.persistence.Column;
+import lombok.Data;
 
 import java.util.UUID;
 
+@Data
 public class AddressInputDTO {
 
     private UUID id;
