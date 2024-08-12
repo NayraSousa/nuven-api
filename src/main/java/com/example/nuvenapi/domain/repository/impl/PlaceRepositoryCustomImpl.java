@@ -43,6 +43,13 @@ public class PlaceRepositoryCustomImpl implements PlaceRepositoryCustom {
 
     @Override
     public List<Place> readAllSorted() {
-        return List.of();
+        CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();
+        CriteriaQuery<Place> query = criteriaBuilder.createQuery(Place.class);
+        Root<Place> place = query.from(Place.class);
+
+        query.orderBy(criteriaBuilder.asc(place.get("createdAt")));
+
+        TypedQuery<Place> queryResult = this.entityManager.createQuery(query);
+        return queryResult.getResultList();
     }
 }

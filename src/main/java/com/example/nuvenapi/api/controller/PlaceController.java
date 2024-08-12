@@ -27,8 +27,8 @@ public class PlaceController {
     }
 
     @GetMapping("/read-all")
-    public List<PlaceOutputDTO> readAll(){
-        return placeService.readAll();
+    public List<PlaceOutputDTO> readAllSorted(){
+        return placeService.readAllSorted();
     }
 
     @GetMapping("/read-by-name")

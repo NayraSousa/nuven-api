@@ -35,8 +35,8 @@ public class PlaceService {
 
     }
 
-    public List<PlaceOutputDTO> readAll() {
-        List<Place> places = placeRepository.findAll();
+    public List<PlaceOutputDTO> readAllSorted() {
+        List<Place> places = placeRepository.readAllSorted();
         List<PlaceOutputDTO> placesOutputDTO = new ArrayList<>();
         placesOutputDTO = places
                 .stream()
