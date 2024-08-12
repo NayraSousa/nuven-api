@@ -1,5 +1,6 @@
 package com.example.nuvenapi.api.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -16,6 +17,7 @@ public class PlaceInputDTO {
     private String name;
 
     @NotNull
+    @Valid
     private AddressInputDTO address;
 
     @NotBlank
