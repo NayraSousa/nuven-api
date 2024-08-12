@@ -1,4 +1,4 @@
-package com.example.nuvenapi.domain.model;
+package com.example.nuvenapi.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -24,8 +24,10 @@ public class Place {
     @Column(nullable = false, length = 200)
     private String description;
 
+    @Column(nullable = false)
     private LocalDateTime createdAt;
 
+    @Column(nullable = false)
     private LocalDateTime updatedAt;
 
     @PostPersist

@@ -3,7 +3,7 @@ package com.example.nuvenapi.api.dto.mapper;
 import com.example.nuvenapi.api.dto.PlaceInputDTO;
 import com.example.nuvenapi.api.dto.PlaceOutputDTO;
 import com.example.nuvenapi.api.dto.configuration.ModelMapperConfiguration;
-import com.example.nuvenapi.model.Place;
+import com.example.nuvenapi.domain.entity.Place;
 import org.springframework.stereotype.Component;
 
 @Component

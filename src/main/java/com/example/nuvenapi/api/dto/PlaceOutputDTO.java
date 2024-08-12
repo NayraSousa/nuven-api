@@ -1,6 +1,6 @@
 package com.example.nuvenapi.api.dto;
 
-import com.example.nuvenapi.model.Address;
+import com.example.nuvenapi.domain.entity.Address;
 import lombok.Data;
 
 import java.time.LocalDateTime;

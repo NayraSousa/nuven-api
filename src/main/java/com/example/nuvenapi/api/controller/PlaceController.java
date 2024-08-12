@@ -2,14 +2,13 @@ package com.example.nuvenapi.api.controller;
 
 import com.example.nuvenapi.api.dto.PlaceInputDTO;
 import com.example.nuvenapi.api.dto.PlaceOutputDTO;
-import com.example.nuvenapi.model.Place;
-import com.example.nuvenapi.service.PlaceService;
-import org.springframework.data.repository.query.Param;
+import com.example.nuvenapi.domain.entity.Place;
+import com.example.nuvenapi.domain.service.PlaceService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -23,7 +22,7 @@ public class PlaceController {
     }
 
     @PostMapping("/create")
-    public PlaceOutputDTO create(@RequestBody PlaceInputDTO placeInputDTO) {
+    public PlaceOutputDTO create(@RequestBody @Valid PlaceInputDTO placeInputDTO) {
         return placeService.create(placeInputDTO);
     }
 
@@ -32,19 +31,19 @@ public class PlaceController {
         return placeService.readAll();
     }
 
-    @PutMapping("/{id}")
-    public PlaceOutputDTO update(@PathVariable UUID id, @RequestBody PlaceInputDTO placeInputDTO){
+    @PutMapping("/update/{id}")
+    public PlaceOutputDTO update(@PathVariable UUID id, @RequestBody @Valid PlaceInputDTO placeInputDTO){
         return placeService.update(id, placeInputDTO);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void delete(@PathVariable UUID id){
         placeService.delete(id);
     }
 
     @GetMapping("/{id}")
-    public Place getByUUID(@PathVariable UUID id){
+    public Place getById(@PathVariable UUID id){
         return placeService.getById(id);
     }
 }

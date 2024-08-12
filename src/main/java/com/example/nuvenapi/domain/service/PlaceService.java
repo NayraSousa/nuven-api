@@ -1,10 +1,11 @@
-package com.example.nuvenapi.service;
+package com.example.nuvenapi.domain.service;
 
 import com.example.nuvenapi.api.dto.PlaceInputDTO;
 import com.example.nuvenapi.api.dto.PlaceOutputDTO;
 import com.example.nuvenapi.api.dto.mapper.PlaceMapper;
-import com.example.nuvenapi.domain.model.Place;
-import com.example.nuvenapi.domain.model.repository.PlaceRepository;
+import com.example.nuvenapi.domain.entity.Place;
+import com.example.nuvenapi.domain.exception.EntityNotFoundException;
+import com.example.nuvenapi.domain.repository.PlaceRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,10 @@ public class PlaceService {
         new Place();
         Place place = placeMapper.toEntity(placeInputDTO);
         place.onCreate();
+        place.onUpdate();
         place = placeRepository.save(place);
         return placeMapper.toDTO(place);
+
     }
 
     public List<PlaceOutputDTO> readAll() {
@@ -48,6 +51,7 @@ public class PlaceService {
         placeInputDTO.setId(place.getId());
         placeInputDTO.setCreatedAt(place.getCreatedAt());
         place.onUpdate();
+        placeInputDTO.setUpdatedAt(place.getUpdatedAt());
         BeanUtils.copyProperties(placeInputDTO, place);
         placeRepository.save(place);
         return placeMapper.toDTO(place);
@@ -60,7 +64,8 @@ public class PlaceService {
     }
 
     public Place getById(UUID id) {
-        Place place = placeRepository.findById(id);
-        return place;
+        return placeRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(id));
+
     }
 }
