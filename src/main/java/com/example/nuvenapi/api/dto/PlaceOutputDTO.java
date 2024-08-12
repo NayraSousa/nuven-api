@@ -1,6 +1,6 @@
 package com.example.nuvenapi.api.dto;
 
-import com.example.nuvenapi.domain.entity.Address;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -11,9 +11,11 @@ public class PlaceOutputDTO {
 
     private UUID id;
     private String name;
-    private Address address;
+    private AddressOutputDTO address;
     private String description;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
 
 }
