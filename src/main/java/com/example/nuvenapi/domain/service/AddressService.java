@@ -2,8 +2,8 @@ package com.example.nuvenapi.service;
 
 import com.example.nuvenapi.api.dto.AddressOutputDTO;
 import com.example.nuvenapi.api.dto.mapper.AddressMapper;
-import com.example.nuvenapi.model.Address;
-import com.example.nuvenapi.repository.AddressRepository;
+import com.example.nuvenapi.domain.model.Address;
+import com.example.nuvenapi.domain.model.repository.AddressRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

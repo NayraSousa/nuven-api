@@ -3,8 +3,8 @@ package com.example.nuvenapi.service;
 import com.example.nuvenapi.api.dto.PlaceInputDTO;
 import com.example.nuvenapi.api.dto.PlaceOutputDTO;
 import com.example.nuvenapi.api.dto.mapper.PlaceMapper;
-import com.example.nuvenapi.model.Place;
-import com.example.nuvenapi.repository.PlaceRepository;
+import com.example.nuvenapi.domain.model.Place;
+import com.example.nuvenapi.domain.model.repository.PlaceRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 

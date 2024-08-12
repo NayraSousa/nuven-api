@@ -1,4 +1,4 @@
-package com.example.nuvenapi.model;
+package com.example.nuvenapi.domain.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

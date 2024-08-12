@@ -1,10 +1,9 @@
-package com.example.nuvenapi.repository;
+package com.example.nuvenapi.domain.model.repository;
 
 
-import com.example.nuvenapi.model.Place;
+import com.example.nuvenapi.domain.model.Place;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
 import java.util.UUID;
 
 
