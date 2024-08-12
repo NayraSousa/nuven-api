@@ -42,7 +42,7 @@ public class PlaceController {
         placeService.delete(id);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/by-id/{id}")
     public Place getById(@PathVariable UUID id){
         return placeService.getById(id);
     }
