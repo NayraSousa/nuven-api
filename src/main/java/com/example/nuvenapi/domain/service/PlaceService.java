@@ -46,8 +46,24 @@ public class PlaceService {
 
     }
 
+    public List<PlaceOutputDTO> readByName(String name) {
+        List<Place> placesByName = placeRepository.getByName(name);
+        List<PlaceOutputDTO> placeOutputDTOS = new ArrayList<>();
+        placeOutputDTOS = placesByName
+                .stream()
+                .map(placeMapper::toDTO)
+                .collect(Collectors.toList());
+        return placeOutputDTOS;
+    }
+
+    public Place readById(UUID id) {
+        return placeRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(id));
+
+    }
+
     public PlaceOutputDTO update(UUID id, PlaceInputDTO placeInputDTO) {
-        Place place = getById(id);
+        Place place = readById(id);
         placeInputDTO.setId(place.getId());
         placeInputDTO.setCreatedAt(place.getCreatedAt());
         place.onUpdate();
@@ -58,14 +74,9 @@ public class PlaceService {
 
     }
 
-    public void delete(UUID id){
-        Place place = getById(id);
+    public void delete(UUID id) {
+        Place place = readById(id);
         placeRepository.delete(place);
     }
 
-    public Place getById(UUID id) {
-        return placeRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(id));
-
-    }
 }
