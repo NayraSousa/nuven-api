@@ -3,6 +3,7 @@ package com.example.nuvenapi.domain.repository;
 
 import com.example.nuvenapi.domain.entity.Place;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
