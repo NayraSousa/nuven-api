@@ -11,23 +11,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice
 public class ExceptionFilter {
 
-    @ExceptionHandler(NoResourceFoundException.class)
-    public ResponseEntity<ProblemBody> handleNoResourceFoundException(NoResourceFoundException e){
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        ErrorCode errorCode = ErrorCode.RESOURCE_NOT_FOUND;
-
-        return new ResponseEntity<>(ProblemBody
-                .builder()
-                .title(errorCode.toString())
-                .status(status.toString())
-                .detail(String.format("Resource %s not found", e.getResourcePath()))
-                .build(), status);
-    }
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ProblemBody> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e){
 

@@ -29,34 +29,43 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if(checkIfEndpointIsNotPublic(request)){
-            String token = recoveryToken(request);
-            if (token != null){
-                String subject = jwtTokenService.getSubjectFromToken(token);
-                Admin user = userRepository.findByUsername(subject).get();
-                UserDetailsImpl userDetails = new UserDetailsImpl(user);
-
-                Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
-
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            } else {
-                throw new RuntimeException("The token is missing");
-            }
+        if (checkIfEndpointIsNotPublic(request)) {
             filterChain.doFilter(request, response);
+            return;
         }
+        String token = recoveryToken(request);
 
+        if (token == null) {
+            throw new RuntimeException("The token is missing");
+        }
+        String subject = null;
+        try {
+            subject = jwtTokenService.getSubjectFromToken(token);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao extrair subject");
+        }
+        Admin user = userRepository.findByUsername(subject).orElse(null);
+
+        UserDetailsImpl userDetails = new UserDetailsImpl(user);
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        filterChain.doFilter(request, response);
     }
+
 
     private String recoveryToken(HttpServletRequest request) {
         String authorizationHeader = request.getHeader("Authorization");
+
         if (authorizationHeader != null) {
             return authorizationHeader.replace("Bearer ", "");
         }
         return null;
     }
 
-    private boolean checkIfEndpointIsNotPublic(HttpServletRequest request){
+    private boolean checkIfEndpointIsNotPublic(HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         return requestURI.equals("/auth") ||
                 requestURI.startsWith("/swagger-ui") ||
