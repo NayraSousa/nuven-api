@@ -41,16 +41,6 @@ public class PlaceController {
         return placeService.readById(id);
     }
 
-    @GetMapping("/read-by-name")
-    public List<PlaceOutputDTO> readByName(@RequestParam String name){
-        return placeService.readByName(name);
-    }
-
-    @GetMapping("/read-by-id/{id}")
-    public Place readById(@PathVariable UUID id){
-        return placeService.readById(id);
-    }
-
     @PutMapping("/update/{id}")
     public PlaceOutputDTO update(@PathVariable UUID id, @RequestBody @Valid PlaceInputDTO placeInputDTO){
         return placeService.update(id, placeInputDTO);
