@@ -11,6 +11,8 @@ O desafio consiste na criação de um CRUD para criar, ler, atualizar e deletar 
 - Spring Security
 - PostgresSQL
 - Lombok
+- JUnit
+- Mockito
 
 ## Pré-Requisitos
 
