@@ -11,15 +11,15 @@ public class PlaceMapper {
 
     private final ModelMapperConfiguration modelMapperConfiguration;
 
-    public PlaceMapper(ModelMapperConfiguration modelMapperConfiguration){
+    public PlaceMapper(ModelMapperConfiguration modelMapperConfiguration) {
         this.modelMapperConfiguration = modelMapperConfiguration;
     }
 
-    public Place toEntity(PlaceInputDTO placeInputDTO){
+    public Place toEntity(PlaceInputDTO placeInputDTO) {
         return modelMapperConfiguration.modelMapper().map(placeInputDTO, Place.class);
     }
 
-    public PlaceOutputDTO toDTO(Place place){
+    public PlaceOutputDTO toDTO(Place place) {
         return modelMapperConfiguration.modelMapper().map(place, PlaceOutputDTO.class);
     }
 }

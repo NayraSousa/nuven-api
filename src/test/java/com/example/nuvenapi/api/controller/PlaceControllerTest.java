@@ -207,7 +207,7 @@ class PlaceControllerTest {
     }
 
     @Test
-    public void returnOkWhenReadById() throws Exception{
+    public void returnOkWhenReadById() throws Exception {
         UUID id = UUID.randomUUID();
         Place place = Place.builder()
                 .id(id)
@@ -223,14 +223,14 @@ class PlaceControllerTest {
 
         given(placeService.readById(id)).willReturn(place);
 
-        ResultActions response = mockMvc.perform(get("/place/read-by-id/"+id)
+        ResultActions response = mockMvc.perform(get("/place/read-by-id/" + id)
                 .header("Authorization", "Bearer " + token));
 
         response.andExpect(status().isOk());
     }
 
     @Test
-    public void returnNotFoundWhenReadByID() throws Exception{
+    public void returnNotFoundWhenReadByID() throws Exception {
         UUID id = UUID.randomUUID();
         Place place = Place.builder()
                 .name("name")
@@ -253,7 +253,7 @@ class PlaceControllerTest {
     }
 
     @Test
-    public void returnOkWhenUpdate() throws Exception{
+    public void returnOkWhenUpdate() throws Exception {
         UUID id = UUID.randomUUID();
         PlaceOutputDTO place = PlaceOutputDTO.builder()
                 .name("name")
@@ -268,7 +268,7 @@ class PlaceControllerTest {
 
         given(placeService.update(eq(id), any(PlaceInputDTO.class))).willReturn(place);
 
-        ResultActions response = mockMvc.perform(put("/place/update/"+id)
+        ResultActions response = mockMvc.perform(put("/place/update/" + id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + token)
                 .content(mapper.writeValueAsString(place)));
@@ -277,7 +277,7 @@ class PlaceControllerTest {
     }
 
     @Test
-    public void returnBadRequestWhenUpdate() throws Exception{
+    public void returnBadRequestWhenUpdate() throws Exception {
 
         UUID id = UUID.randomUUID();
         PlaceOutputDTO place = PlaceOutputDTO.builder()
@@ -302,7 +302,7 @@ class PlaceControllerTest {
     }
 
     @Test
-    public void returnNoContentWhenDelete() throws Exception{
+    public void returnNoContentWhenDelete() throws Exception {
 
         UUID id = UUID.randomUUID();
         PlaceOutputDTO place = PlaceOutputDTO.builder()
@@ -318,7 +318,7 @@ class PlaceControllerTest {
                 .build();
 
         mockMvc.perform(delete("/place/delete/" + id)
-                .header("Authorization", "Bearer "+token))
+                        .header("Authorization", "Bearer " + token))
                 .andExpect(status().isNoContent());
 
     }

@@ -51,7 +51,7 @@ class AddressControllerTest {
     }
 
     @Test
-    public void readAllTest() throws Exception {
+    public void returnOkWhenReadAll() throws Exception {
 
         List<AddressOutputDTO> addressList = new ArrayList<>();
         addressList.add(address);
