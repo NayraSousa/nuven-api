@@ -1,4 +1,4 @@
-# DESAFIO TÉCNICO PARA DESENVOLVEDOR JAVA - NUVEN
+# DESAFIO TÉCNICO PARA DESENVOLVEDOR BACKEND - NUVEN
 
 
 O desafio consiste na criação de um CRUD para criar, ler, atualizar e deletar locais de um banco de dados.
