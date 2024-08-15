@@ -55,7 +55,7 @@ docker compose up --build
 
 - **Detalhes do Local**
     - **Método:** GET
-    - **Endpoint:** `/place/read-by-name/`
+    - **Endpoint:** `/place/read-by-name?name=`
     - **Descrição:** Retorna uma lista de locais a partir do nome correspondente.
 
     - **Método:** GET
