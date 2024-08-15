@@ -2,6 +2,8 @@ package com.example.nuvenapi.api.filter;
 
 import com.example.nuvenapi.domain.exception.EntityNotFoundException;
 import com.example.nuvenapi.api.filter.response.ProblemBody;
+import com.example.nuvenapi.domain.exception.IncompatiblePasswordException;
+import com.example.nuvenapi.domain.exception.UserNotFoundException;
 import com.example.nuvenapi.domain.exception.enums.ErrorCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -77,6 +79,32 @@ public class ExceptionFilter {
 
         HttpStatus status = HttpStatus.NOT_FOUND;
         ErrorCode errorCode = ErrorCode.ENTITY_NOT_FOUND;
+        String detail = e.getMessage();
+
+        return new ResponseEntity<>(ProblemBody
+                .builder()
+                .title(errorCode.toString())
+                .status(status.toString())
+                .detail(detail).build(), status);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ProblemBody> handleUserNotFound(UserNotFoundException e){
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ErrorCode errorCode = ErrorCode.USER_NOT_FOUND;
+        String detail = e.getMessage();
+
+        return new ResponseEntity<>(ProblemBody
+                .builder()
+                .title(errorCode.toString())
+                .status(status.toString())
+                .detail(detail).build(), status);
+    }
+
+    @ExceptionHandler(IncompatiblePasswordException.class)
+    public ResponseEntity<ProblemBody> handleUserNotFound(IncompatiblePasswordException e){
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ErrorCode errorCode = ErrorCode.INCOMPATIBLE_PASSWORD;
         String detail = e.getMessage();
 
         return new ResponseEntity<>(ProblemBody

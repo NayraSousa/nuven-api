@@ -21,6 +21,7 @@ public class PlaceController {
         this.placeService = placeService;
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/create")
     public PlaceOutputDTO create(@RequestBody @Valid PlaceInputDTO placeInputDTO) {
         return placeService.create(placeInputDTO);

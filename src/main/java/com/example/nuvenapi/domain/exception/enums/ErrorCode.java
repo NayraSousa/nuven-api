@@ -10,7 +10,9 @@ public enum ErrorCode {
         INCOMPREHENSIBLE_MESSAGE("Incomprehensible message"),
         INVALID_PARAMETER("Invalid parameter"),
         METHOD_NOT_ALLOWED("METHOD_NOT_ALLOWED"),
-        RESOURCE_NOT_FOUND("Resource not found");
+        RESOURCE_NOT_FOUND("Resource not found"),
+        USER_NOT_FOUND("User not found"),
+        INCOMPATIBLE_PASSWORD("Incompatible password");
 
 
 
