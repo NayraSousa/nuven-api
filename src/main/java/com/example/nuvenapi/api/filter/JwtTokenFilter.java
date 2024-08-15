@@ -1,13 +1,17 @@
 package com.example.nuvenapi.api.filter;
 
+import com.example.nuvenapi.api.filter.response.ProblemBody;
 import com.example.nuvenapi.api.security.details.UserDetailsImpl;
 import com.example.nuvenapi.domain.entity.Admin;
+import com.example.nuvenapi.domain.exception.enums.ErrorCode;
 import com.example.nuvenapi.domain.repository.UserRepository;
 import com.example.nuvenapi.domain.service.JwtTokenService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,13 +40,15 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String token = recoveryToken(request);
 
         if (token == null) {
-            throw new RuntimeException("The token is missing");
+            responseError(response, ErrorCode.MISSING_TOKEN);
+            return ;
         }
         String subject = null;
         try {
             subject = jwtTokenService.getSubjectFromToken(token);
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao extrair subject");
+            responseError(response, ErrorCode.SUBJECT_ERROR);
+            return ;
         }
         Admin user = userRepository.findByUsername(subject).orElse(null);
 
@@ -53,6 +59,17 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         filterChain.doFilter(request, response);
+    }
+
+    private void responseError(HttpServletResponse response, ErrorCode errorCode) throws IOException {
+        ProblemBody problemBody = ProblemBody.builder()
+                .title(errorCode.toString())
+                .status(HttpStatus.UNAUTHORIZED.toString())
+                .detail(errorCode.getTitle())
+                .build();
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        response.setContentType("application/json");
+        response.getWriter().write(convertToJSON(problemBody));
     }
 
 
@@ -70,5 +87,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         return requestURI.equals("/auth") ||
                 requestURI.startsWith("/swagger-ui") ||
                 requestURI.startsWith("/api-docs");
+    }
+
+    private String convertToJSON(Object object) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(object);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

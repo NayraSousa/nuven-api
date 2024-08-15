@@ -1,9 +1,7 @@
 package com.example.nuvenapi.api.filter;
 
-import com.example.nuvenapi.domain.exception.EntityNotFoundException;
+import com.example.nuvenapi.domain.exception.*;
 import com.example.nuvenapi.api.filter.response.ProblemBody;
-import com.example.nuvenapi.domain.exception.IncompatiblePasswordException;
-import com.example.nuvenapi.domain.exception.UserNotFoundException;
 import com.example.nuvenapi.domain.exception.enums.ErrorCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -102,7 +100,7 @@ public class ExceptionFilter {
     }
 
     @ExceptionHandler(IncompatiblePasswordException.class)
-    public ResponseEntity<ProblemBody> handleUserNotFound(IncompatiblePasswordException e){
+    public ResponseEntity<ProblemBody> handleIncompatiblePassword(IncompatiblePasswordException e){
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ErrorCode errorCode = ErrorCode.INCOMPATIBLE_PASSWORD;
         String detail = e.getMessage();
@@ -113,6 +111,10 @@ public class ExceptionFilter {
                 .status(status.toString())
                 .detail(detail).build(), status);
     }
+
+
+
+
 
 
 }

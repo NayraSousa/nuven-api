@@ -25,11 +25,11 @@ public class AuthenticationService {
     public UserOutputDTO authenticateUser(UserInputDTO userInputDTO) {
 
         Admin admin = userRepository.findByUsername(userInputDTO.getUsername())
-                .orElseThrow(() -> new UserNotFoundException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException());
 
 
         if (!passwordEncoder.matches(userInputDTO.getPassword(), admin.getPassword())) {
-            throw new IncompatiblePasswordException("exceção");
+            throw new IncompatiblePasswordException();
         }
         return UserOutputDTO.builder()
                 .token(jwtTokenService.generateToken(admin.getUsername()))

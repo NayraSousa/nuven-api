@@ -12,7 +12,9 @@ public enum ErrorCode {
         METHOD_NOT_ALLOWED("METHOD_NOT_ALLOWED"),
         RESOURCE_NOT_FOUND("Resource not found"),
         USER_NOT_FOUND("User not found"),
-        INCOMPATIBLE_PASSWORD("Incompatible password");
+        INCOMPATIBLE_PASSWORD("Incompatible password"),
+        MISSING_TOKEN("The token is missing"),
+        SUBJECT_ERROR("Error when extracting subject");
 
 
 
