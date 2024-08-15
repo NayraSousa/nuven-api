@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.UUID;
 
 @Entity
@@ -38,13 +39,13 @@ public class Place {
 
     @PostPersist
     public void onCreate(){
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now(ZoneId.of("America/Recife"));
+        this.updatedAt = LocalDateTime.now(ZoneId.of("America/Recife"));
     }
 
     @PostUpdate
     public void onUpdate(){
-        this.updatedAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now(ZoneId.of("America/Recife"));
     }
 
 }
